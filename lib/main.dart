@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
+=======
+import 'counter_app.dart';
+import 'layout_example.dart';
+import 'page_one.dart';
+>>>>>>> 7221ea0 (widget flutter)
 
 void main() {
   runApp(const MyApp());
@@ -11,12 +17,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+<<<<<<< HEAD
       theme: ThemeData(primarySwatch: Colors.blue),
       home: const HomeScreen(),
+=======
+      home: MainMenu(),
+>>>>>>> 7221ea0 (widget flutter)
     );
   }
 }
 
+<<<<<<< HEAD
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -27,10 +38,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _controller = TextEditingController();
   String _displayText = '';
+=======
+class MainMenu extends StatelessWidget {
+  const MainMenu({super.key});
+>>>>>>> 7221ea0 (widget flutter)
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< HEAD
       backgroundColor: const Color.fromARGB(150, 9, 153, 117),
       appBar: AppBar(title: const Text('App - Mauliza Aprilia')),
       body: SingleChildScrollView(
@@ -145,12 +161,48 @@ class _HomeScreenState extends State<HomeScreen> {
                 _buildNavigationButton(context, 'Cupertino Button', const CupertinoButtonPage()),
                 _buildNavigationButton(context, 'Custom Gesture', const CustomGesturePage()),
               ],
+=======
+      appBar: AppBar(title: const Text('Main Menu')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CounterApp()),
+                );
+              },
+              child: const Text('Go to Counter App'),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LayoutExample()),
+                );
+              },
+              child: const Text('Go to Layout Example'),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PageOne()),
+                );
+              },
+              child: const Text('Go to Page One'),
+>>>>>>> 7221ea0 (widget flutter)
             ),
           ],
         ),
       ),
     );
   }
+<<<<<<< HEAD
 
   // Fungsi untuk Membuat Tombol dengan Navigasi
   Widget _buildNavigationButton(BuildContext context, String title, Widget page) {
@@ -281,4 +333,6 @@ class CustomGesturePage extends StatelessWidget {
       ),
     );
   }
+=======
+>>>>>>> 7221ea0 (widget flutter)
 }

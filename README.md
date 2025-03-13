@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # flutter_liza
+=======
+# my_first_app
+>>>>>>> 7221ea0 (widget flutter)
 
 A new Flutter project.
 

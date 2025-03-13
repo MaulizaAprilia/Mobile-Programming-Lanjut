@@ -1,6 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
+<<<<<<< HEAD
         android:label="flutter_liza"
+=======
+        android:label="my_first_app"
+>>>>>>> 7221ea0 (widget flutter)
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
