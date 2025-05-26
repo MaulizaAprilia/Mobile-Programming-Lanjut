@@ -1,0 +1,46 @@
+name: kasir_app
+description: Aplikasi Kasir Flutter
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.0 <4.0.0"
+  flutter: ">=3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # UI & State Management
+  cupertino_icons: ^1.0.6
+  provider: ^6.1.1
+  
+  # Database
+  sqflite: ^2.3.0
+  path: ^1.8.3
+  
+  # Utilities
+  intl: ^0.19.0           # Format tanggal & angka
+  shared_preferences: ^2.2.2  # Local storage
+  
+  # Icons & Fonts
+  google_fonts: ^6.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  
+  # Assets
+  # assets:
+  #   - assets/images/
+  #   - assets/icons/
+  
+  # Fonts (opsional)
+  # fonts:
+  #   - family: CustomFont
+  #     fonts:
+  #       - asset: assets/fonts/CustomFont-Regular.ttf
