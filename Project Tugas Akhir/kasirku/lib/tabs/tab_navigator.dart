@@ -4,111 +4,104 @@ import '../pages/home_page.dart';
 import '../pages/produk_page.dart';
 import '../pages/settings_page.dart';
 
-/// TabNavigator widget mengelola tab bar navigation dengan tiga tab utama:
-/// - Home
-/// - Produk
-/// - Settings
-///
-/// Digunakan di halaman utama (HomePage) yang memakai bottom navigation bar atau tab bar.
 class TabNavigator extends StatefulWidget {
+  const TabNavigator({Key? key}) : super(key: key);
+
   @override
   _TabNavigatorState createState() => _TabNavigatorState();
 }
 
-class _TabNavigatorState extends State<TabNavigator> with TickerProviderStateMixin {
-  late TabController _tabController;
+class _TabNavigatorState extends State<TabNavigator> {
+  int _selectedIndex = 0;
 
-  final List<Tab> _tabs = [
-    Tab(icon: Icon(Icons.home), text: 'Home'),
-    Tab(icon: Icon(Icons.inventory), text: 'Produk'),
-    Tab(icon: Icon(Icons.settings), text: 'Settings'),
+  final PageStorageBucket _bucket = PageStorageBucket();
+
+  final List<Widget> _pages = [
+    HomePage(key: PageStorageKey('HomePage')),
+    ProdukPage(key: PageStorageKey('ProdukPage')),
+    SettingsPage(key: PageStorageKey('SettingsPage')),
   ];
 
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: _tabs.length, vsync: this);
+  void _onTabTapped(int index) {
+    if (index != _selectedIndex) {
+      setState(() {
+        _selectedIndex = index;
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Berpindah ke tab ${_tabTitle(index)}'),
+          duration: Duration(seconds: 1),
+        ),
+      );
+    }
   }
 
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
+  String _tabTitle(int index) {
+    switch (index) {
+      case 0:
+        return 'Home';
+      case 1:
+        return 'Produk';
+      case 2:
+        return 'Settings';
+      default:
+        return '';
+    }
+  }
+
+  Widget? _buildFAB() {
+    switch (_selectedIndex) {
+      case 1:
+        return FloatingActionButton(
+          backgroundColor: const Color(0xFF370505),
+          onPressed: () {
+            // Aksi khusus produk
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Tambah produk baru')),
+            );
+          },
+          child: Icon(Icons.add),
+          tooltip: 'Tambah Produk',
+        );
+      default:
+        return null;
+    }
+  }
+
+  BottomNavigationBar _buildBottomNavigationBar() {
+    return BottomNavigationBar(
+      currentIndex: _selectedIndex,
+      selectedItemColor: const Color(0xFF370505),
+      unselectedItemColor: Colors.grey,
+      backgroundColor: Colors.white,
+      elevation: 10,
+      onTap: _onTabTapped,
+      items: const [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.inventory), label: 'Produk'),
+        BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('KASIRKU'),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: _tabs,
-          labelColor: Colors.white,               // warna teks icon dan label saat dipilih
-          unselectedLabelColor: Colors.white70,   // warna teks icon dan label saat tidak dipilih
-          indicatorColor: Colors.white,            // warna garis di bawah tab aktif
+        title: Text('KASIRKU - ${_tabTitle(_selectedIndex)}'),
+        backgroundColor: const Color(0xFF370505),
+        automaticallyImplyLeading: false,
+      ),
+      body: PageStorage(
+        bucket: _bucket,
+        child: IndexedStack(
+          index: _selectedIndex,
+          children: _pages,
         ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          HomePage(),
-          ProdukPage(),
-          SettingsPage(),
-        ],
-      ),
-      drawer: _buildDrawer(context),
-    );
-  }
-
-  Widget _buildDrawer(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-            decoration: BoxDecoration(color: const Color(0xFF370505)),
-            child: Text(
-              'Menu Kasirku',
-              style: TextStyle(color: Colors.white, fontSize: 24),
-            ),
-          ),
-          ListTile(
-            leading: Icon(Icons.home, color: const Color(0xFF370505)),
-            title: Text('Home'),
-            onTap: () {
-              Navigator.pop(context);
-              _tabController.animateTo(0);
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.inventory, color: const Color(0xFF370505)),
-            title: Text('Produk'),
-            onTap: () {
-              Navigator.pop(context);
-              _tabController.animateTo(1);
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.settings, color: const Color(0xFF370505)),
-            title: Text('Settings'),
-            onTap: () {
-              Navigator.pop(context);
-              _tabController.animateTo(2);
-            },
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.logout),
-            title: Text('Keluar'),
-            onTap: () {
-              // Logika logout atau keluar aplikasi
-              Navigator.pop(context);
-              // Misal keluar aplikasi atau ke halaman login
-            },
-          ),
-        ],
-      ),
+      floatingActionButton: _buildFAB(),
+      bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }
 }

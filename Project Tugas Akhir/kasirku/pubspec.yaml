@@ -11,6 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
+  intl: ^0.19.0
+  provider: ^6.0.5
 
 dev_dependencies:
   flutter_test:
@@ -22,6 +24,17 @@ flutter:
 
   assets:
     - assets/pasta_gigi.jpg
-    - assets/sabun.jpg
+    - assets/sabun_mandi.jpg
     - assets/shampoo.jpg
     - assets/sikat_gigi.jpg
+    - assets/profile.jpg
+    - assets/kasir_logo1.jpg
+    - assets/deodorant.jpg
+    - assets/handuk_mandi.jpg
+    - assets/kapas_mandi.jpg
+    - assets/pembersih_lantai.jpg
+    - assets/pewangi_ruangan.jpg
+    - assets/sabun_cuci_piring.jpg
+    - assets/sabun_cuci_tangan.jpg
+    - assets/sarung_tangan_karet.jpg
+    - assets/sikat_wc.jpg

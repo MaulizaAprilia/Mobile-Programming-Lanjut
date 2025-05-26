@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'pages/home_page.dart';
+import 'providers/cart_provider.dart';
+import 'theme/theme_notifier.dart';
+import 'pages/settings_page.dart'; // sesuaikan path
 
 // Custom MaterialColor untuk warna merah gelap
 MaterialColor customSwatch = const MaterialColor(
@@ -19,14 +23,27 @@ MaterialColor customSwatch = const MaterialColor(
 );
 
 void main() {
-  runApp(KasirkuApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeNotifier()),
+      ],
+      child: const KasirkuApp(),
+    ),
+  );
 }
 
 class KasirkuApp extends StatelessWidget {
+  const KasirkuApp({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
+
     return MaterialApp(
       title: 'KASIRKU',
+      themeMode: themeNotifier.themeMode,
       theme: ThemeData(
         primarySwatch: customSwatch,
         textTheme: const TextTheme(
@@ -48,7 +65,7 @@ class KasirkuApp extends StatelessWidget {
             color: Colors.white,
           ),
           iconTheme: IconThemeData(
-            color: Colors.white, // Ubah warna ikon seperti hamburger/menu
+            color: Colors.white,
           ),
         ),
         cardTheme: const CardTheme(
@@ -59,7 +76,27 @@ class KasirkuApp extends StatelessWidget {
           margin: EdgeInsets.all(8),
         ),
       ),
-      home: HomePage(),
+      darkTheme: ThemeData.dark().copyWith(
+        primaryColor: customSwatch[700],
+        appBarTheme: AppBarTheme(
+          backgroundColor: customSwatch[900],
+          iconTheme: const IconThemeData(color: Colors.white),
+          titleTextStyle: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+        cardTheme: CardTheme(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 4,
+          margin: const EdgeInsets.all(8),
+          color: Colors.grey[800],
+        ),
+      ),
+      home: const HomePage(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -4,6 +4,8 @@ import 'transaksi_page.dart';
 import '../tabs/tab_navigator.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   void navigateTo(BuildContext context, Widget page) {
     Navigator.push(context, MaterialPageRoute(builder: (_) => page));
   }
@@ -15,76 +17,145 @@ class HomePage extends StatelessWidget {
         child: ListView(
           children: [
             DrawerHeader(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [const Color.fromARGB(255, 55, 5, 5), const Color.fromARGB(255, 89, 7, 7)]),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color.fromARGB(255, 55, 5, 5),
+                    Color.fromARGB(255, 89, 7, 7),
+                  ],
+                ),
               ),
               child: Column(
-                children: [
-                  CircleAvatar(radius: 30, backgroundColor: Colors.white,),
+                children: const [
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.white,
+                    backgroundImage: AssetImage('assets/profile.jpg'),
+                  ),
                   SizedBox(height: 10),
-                  Text('Admin Kasir', style: TextStyle(color: Colors.white, fontSize: 18))
+                  Text(
+                    'Admin Kasir',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
                 ],
               ),
             ),
             ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Beranda'),
+              leading: const Icon(Icons.home),
+              title: const Text('Beranda'),
               onTap: () => Navigator.pop(context),
             ),
             ListTile(
-              leading: Icon(Icons.inventory),
-              title: Text('Kelola Produk'),
-              onTap: () => navigateTo(context, ProdukPage()),
+              leading: const Icon(Icons.inventory),
+              title: const Text('Kelola Produk'),
+              onTap: () => navigateTo(context,  ProdukPage()),
             ),
             ListTile(
-              leading: Icon(Icons.point_of_sale),
-              title: Text('Transaksi'),
+              leading: const Icon(Icons.point_of_sale),
+              title: const Text('Transaksi'),
               onTap: () => navigateTo(context, TransaksiPage()),
             ),
             ListTile(
-              leading: Icon(Icons.tab),
-              title: Text('Tab Navigasi'),
-              onTap: () => navigateTo(context, TabNavigator()),
+              leading: const Icon(Icons.tab),
+              title: const Text('Tab Navigasi'),
+              onTap: () => navigateTo(context, const TabNavigator()),
             ),
           ],
         ),
       ),
-      appBar: AppBar(title: Text("KASIRKU")),
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [const Color.fromARGB(255, 255, 255, 255), Colors.white],
+      appBar: AppBar(
+        title: const Text("KASIRKU"),
+        backgroundColor: const Color(0xFF370505),
+      ),
+      body: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(16),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.white, Color(0xFFF7F7F7)],
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/kasir_logo1.jpg',
+              height: 100,
+              fit: BoxFit.contain,
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              "Selamat Datang di KASIRKU",
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF370505),
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              "Kelola produk, buat transaksi, dan navigasi dengan mudah.",
+              style: TextStyle(fontSize: 14, color: Colors.black54),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 30),
+            Card(
+              elevation: 5,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 220,
+                      child: ElevatedButton.icon(
+                        icon: const Icon(Icons.inventory, color: Colors.white),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF370505),
+                          foregroundColor: Colors.white,
+                          minimumSize: const Size(0, 48),
+                        ),
+                        onPressed: () => navigateTo(context, ProdukPage()),
+                        label: const Text('Kelola Produk'),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      width: 220,
+                      child: ElevatedButton.icon(
+                        icon: const Icon(Icons.point_of_sale, color: Colors.white),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF370505),
+                          foregroundColor: Colors.white,
+                          minimumSize: const Size(0, 48),
+                        ),
+                        onPressed: () => navigateTo(context, TransaksiPage()),
+                        label: const Text('Transaksi Baru'),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      width: 220,
+                      child: ElevatedButton.icon(
+                        icon: const Icon(Icons.tab, color: Colors.white),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF370505),
+                          foregroundColor: Colors.white,
+                          minimumSize: const Size(0, 48),
+                        ),
+                        onPressed: () => navigateTo(context, const TabNavigator()),
+                        label: const Text('Lihat Halaman Tab'),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () => navigateTo(context, ProdukPage()),
-                  child: Text('Kelola Produk'),
-                ),
-                SizedBox(height: 12), // Jarak antar tombol
-
-                ElevatedButton(
-                  onPressed: () => navigateTo(context, TransaksiPage()),
-                  child: Text('Transaksi Baru'),
-                ),
-                SizedBox(height: 12), // Jarak antar tombol
-
-                ElevatedButton(
-                  onPressed: () => navigateTo(context, TabNavigator()),
-                  child: Text('Lihat Halaman Tab'),
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
